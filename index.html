@@ -34,7 +34,7 @@
     <script>
       // TODO: Deklarasi variable sesuai dengan kebutuhan di sini
       let button = document.getElementById('todo-submit');
-      
+      let input = document.getElementById('todo-input');
       let output = document.getElementById('todo-output');
 
       // TODO: Buatlah sebuah fungsi dengan nama fnClickHandler
@@ -43,20 +43,30 @@
       function listElement(element) {
         const list = document.createElement('li');
         //list.innerText = element;
-        var t = document.createTextNode(element);
-        list.appendChild(t);
+        //var t = document.createTextNode(element);
+        list.append(element);
         console.log(list)
         return list;
       }
 
       function fnClickHandler(toDoItem) { 
-        let input = document.getElementById('todo-input').value;
-        let elementInput = listElement(input);
+        let inputValue = input.value;
+        let elementInput = listElement(inputValue);
         toDoItem.appendChild(elementInput);
-        //return toDoItem;
       }
 
-      button.addEventListener('click', fnClickHandler(output));
+
+      button.addEventListener('click', () => {
+        fnClickHandler(output);
+        document.getElementById('todo-input').value = "";
+      });
+
+      input.addEventListener('keypress', (event) => {
+        if(event.key === 'Enter' || event.keyCode ==13) {
+          fnClickHandler(output);
+        }
+      })
+
 
       // TODO: register event onclick / addEventListener untuk button
       // akan menjalankan fungsi fnClickHandler
